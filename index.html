@@ -4,8 +4,72 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>Five stones</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		.board {
+			display: flex;
+			flex-direction: column;
+			border-left: 1px solid brown;
+			border-top: 1px solid brown;
+			position: relative;
+			margin: auto;
+		}
+		.piece {
+			position: absolute;
+			border-radius: 50%;
+		}
+		.black {
+			background: #000;
+		}
+		.white {
+			background: #ddd;
+		}
+		.row {
+			display: flex;
+			flex: 1;
+		}
+		.cell {
+			flex: 1;
+			height: 100%;
+			border-bottom: 1px solid brown;
+			border-right: 1px solid brown;
+		}
+		h3 {
+			text-align: center;
+		}
+		.turn {
+			display: inline-block;
+			border-radius: 50%;
+			width: 30px;
+			height: 30px;
+			margin-right: 20px;
+		}
+		button {
+			width: 120px;
+			text-align: center;
+			margin-right: 20px;
+		}
+		.toolbar {
+			display: flex;
+			justify-content: space-between;
+			padding: 10px;
+		}
+		.restart {
+			margin-left: auto;
+		}
+	</style>
 </head>
 <body>
+	<h3>简易五子棋</h3>
+	<div class="toolbar">
+		<div class="turn black"></div>
+		<button class="undo">悔棋</button>
+		<button class="redo">撤销悔棋</button>
+		<button class="restart">新局</button>
+	</div>
 	<div class="board"></div>
 	<script src="game.js"></script>
 </body>
