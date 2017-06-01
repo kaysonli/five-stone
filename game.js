@@ -10,10 +10,12 @@ function approximate(number) {
     return Math.floor(number);
 }
 
+//棋盘
 function Board(el) {
     this.el = typeof el === 'string' ? document.querySelector(el) : el;
 }
 
+//初始化棋盘
 Board.prototype.init = function() {
     this.el.innerHTML = '';
     var frag = document.createDocumentFragment();
@@ -30,13 +32,15 @@ Board.prototype.init = function() {
     this.el.appendChild(frag);
     var aCell = this.el.querySelector('.cell');
     var rect = aCell.getBoundingClientRect();
-    var w = ~~(document.body.clientWidth * 0.8 / (SIZE - 1));
+    var maxWidth = Math.min(document.body.clientWidth * 0.8, SIZE * 40);
+    var w = ~~(maxWidth / (SIZE - 1));
     this.el.style.height = w * (SIZE - 1) + 'px';
     this.el.style.width = w * (SIZE - 1) + 'px';
     rect = aCell.getBoundingClientRect();
     this.unit = rect.width;
 }
 
+//画棋子
 Board.prototype.drawPiece = function(piece) {
     var dom = document.createElement('div');
     dom.classList.add('piece');
@@ -49,6 +53,7 @@ Board.prototype.drawPiece = function(piece) {
     return dom;
 }
 
+//棋子
 function Piece(x, y, player) {
     this.x = x;
     this.y = y;
@@ -58,7 +63,6 @@ function Piece(x, y, player) {
 function Game(engine) {
     this.engine = engine || 'DOM';
     this.init();
-    this.start();
 }
 
 Game.prototype.init = function() {
@@ -109,6 +113,9 @@ Game.prototype.start = function() {
 
 Game.prototype.play = function(x, y) {
     if (this.ended) {
+        return;
+    }
+    if (this.data[x][y] > 0) {
         return;
     }
     this.currentPlayer = this.currentPlayer === BLACK ? WHITE : BLACK;
@@ -162,6 +169,7 @@ Game.prototype.redo = function() {
     this.data[piece.x][piece.y] = piece.player;
 }
 
+//判断胜负
 Game.prototype.judge = function(x, y, player) {
     var horizontal = 0;
     var vertical = 0;
@@ -229,5 +237,6 @@ Game.prototype.judge = function(x, y, player) {
 
 document.addEventListener('DOMContentLoaded', function() {
     var game = new Game();
+    game.start();
     console.log('DOMContentLoaded')
 })

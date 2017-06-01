@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<title>Five stones</title>
+	<title>简易五子棋 - by Kayson Li</title>
 	<style>
 		body {
 			margin: 0;
@@ -56,21 +56,36 @@
 			display: flex;
 			justify-content: space-between;
 			padding: 10px;
+			max-width: 560px;
+			margin: auto;
 		}
 		.restart {
 			margin-left: auto;
+			background: green;
+			color: #fff;
+			border: none;
+		}
+		footer {
+			max-width: 560px;
+			margin: auto;
+			text-align: right;
+			color: blue;
+			margin-top: 20px;
 		}
 	</style>
 </head>
 <body>
 	<h3>简易五子棋</h3>
 	<div class="toolbar">
-		<div class="turn black"></div>
+		<div>
+			<div class="turn black"></div>
+		</div>
 		<button class="undo">悔棋</button>
 		<button class="redo">撤销悔棋</button>
 		<button class="restart">新局</button>
 	</div>
 	<div class="board"></div>
+	<footer>by Kayson Li</footer>
 	<script src="game.js"></script>
 </body>
 </html>
