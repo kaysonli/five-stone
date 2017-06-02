@@ -118,7 +118,10 @@ Game.prototype.play = function(x, y) {
     if (this.data[x][y] > 0) {
         return;
     }
-    this.currentPlayer = this.currentPlayer === BLACK ? WHITE : BLACK;
+    if(!this.lockPlayer) {
+        this.currentPlayer = this.currentPlayer === BLACK ? WHITE : BLACK;
+    }
+    this.lockPlayer = false;
     var piece = new Piece(x, y, this.currentPlayer);
     var pieceEl = this.board.drawPiece(piece);
     this.data[x][y] = this.currentPlayer;
@@ -155,6 +158,7 @@ Game.prototype.undo = function() {
     if(this.ended) {
         return;
     }
+    this.lockPlayer = true;
     this.move.el.remove();
     var piece = this.move.piece;
     this.data[piece.x][piece.y] = 0;
@@ -164,6 +168,7 @@ Game.prototype.redo = function() {
     if(this.ended) {
         return;
     }
+    this.lockPlayer = false;
     this.board.el.appendChild(this.move.el);
     var piece = this.move.piece;
     this.data[piece.x][piece.y] = piece.player;
